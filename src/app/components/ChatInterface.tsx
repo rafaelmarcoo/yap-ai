@@ -10,11 +10,9 @@ const ChatInterface = () => {
    const [message, setMessage] = useState('');
    const [messages, setMessages] = useState<Message[]>([]);
    const [isLoading, setIsLoading] = useState(false);
-   const [error, setError] = useState<string | null>(null);
 
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
-      setError(null);
 
       if(!message.trim() || isLoading) return;
 
@@ -36,12 +34,11 @@ const ChatInterface = () => {
             body: JSON.stringify({ messages: [...messages, userMessage] }),
          });
 
-         const data = await response.json();
-
          if(!response.ok) {
-            throw new Error(data.error || 'Failed to fetch response');
+            throw new Error('Failed to fetch response');
          }
 
+         const data = await response.json();
          const assistantMessage : Message = {
             role: 'assistant',
             content: data.message,
@@ -50,11 +47,6 @@ const ChatInterface = () => {
          setMessages(prev => [...prev, assistantMessage]);
       } catch (error) {
          console.error('Error:', error);
-         setError(error instanceof Error ? error.message : 'An error occurred');
-         setMessages(prev => [...prev, {
-            role: 'assistant',
-            content: 'Sorry, I encountered an error. Please try again.'
-         }]);
       } finally {
          setIsLoading(false);
       }
@@ -62,11 +54,6 @@ const ChatInterface = () => {
 
    return (
       <div className="flex flex-col w-full h-screen max-w-xl mx-auto bg-neutral-900 rounded-lg text-white">
-         {error && (
-            <div className="bg-red-500 text-white p-2 text-center">
-               {error}
-            </div>
-         )}
          <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((msg, index) => (
                <div
@@ -106,7 +93,7 @@ const ChatInterface = () => {
                />
                <button
                   type="submit"
-                  className='bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-6 py-2 transition-colors disabled:opacity-50'
+                  className='bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-6 py-2 transition-colors'
                   disabled={isLoading}
                >
                   Send

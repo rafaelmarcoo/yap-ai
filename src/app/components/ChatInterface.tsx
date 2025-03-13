@@ -26,7 +26,7 @@ const ChatInterface = () => {
       setIsLoading(true);
 
       try {
-         const response = await fetch('api/openai', {
+         const response = await fetch('api/claude', {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',

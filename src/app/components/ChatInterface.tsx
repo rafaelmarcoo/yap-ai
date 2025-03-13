@@ -65,7 +65,7 @@ const ChatInterface = () => {
 
    return (
       <div className="flex flex-col w-full h-screen max-w-2xl mx-auto bg-gradient-to-b from-neutral-900 to-neutral-950 shadow-2xl text-white">
-         {/* Header */}
+
          <div className="p-4 border-b border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
             <h1 className="text-xl font-semibold text-center text-blue-400">Yap AI</h1>
          </div>

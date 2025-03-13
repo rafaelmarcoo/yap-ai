@@ -26,13 +26,13 @@ const ChatInterface = () => {
       setIsLoading(true);
 
       try {
-         const response = await fetch('/api/chat', {
+         const response = await fetch('api/chat', {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ messages: [...messages, userMessage] }),
-         });
+            body: JSON.stringify({ messages: [...messages, userMessage]})
+         })
 
          if(!response.ok) {
             throw new Error('Failed to fetch response');
@@ -53,7 +53,7 @@ const ChatInterface = () => {
    };
 
    return (
-      <div className="flex flex-col w-full h-screen max-w-xl mx-auto bg-neutral-900 rounded-lg text-white">
+      <div className="flex flex-col w-full h-screen max-w-2xl mx-auto bg-neutral-900/50 rounded-lg text-white">
          <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((msg, index) => (
                <div
